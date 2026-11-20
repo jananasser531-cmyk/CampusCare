@@ -1,0 +1,408 @@
+/* ==========================================================================
+   CampusCare Bootstrap overrides (Bootstrap 5.3.x)
+   Maps cc- tokens onto Bootstrap's variables so Bootstrap's default look
+   never shows through (spec section 3). Load AFTER bootstrap.min.css.
+
+   The rgb triplets below are Bootstrap requirements: --bs-*-rgb variables
+   must be plain numbers. They duplicate the hex tokens in tokens.css, so
+   change both together.
+   ========================================================================== */
+
+:root {
+  --bs-body-font-family: var(--cc-font-sans);
+  --bs-body-font-size: var(--cc-fs-body);
+  --bs-body-font-weight: var(--cc-fw-body);
+  --bs-body-line-height: var(--cc-lh-body);
+  --bs-body-color: var(--cc-ink);
+  --bs-body-color-rgb: 27, 36, 48;
+  --bs-body-bg: var(--cc-plaster);
+  --bs-body-bg-rgb: 242, 244, 246;
+  --bs-secondary-color: var(--cc-muted);
+  --bs-border-color: var(--cc-line);
+  --bs-border-radius: var(--cc-radius-control);
+  --bs-border-radius-lg: var(--cc-radius-panel);
+
+  --bs-link-color: var(--cc-primary);
+  --bs-link-color-rgb: 29, 78, 137;
+  --bs-link-hover-color: var(--cc-primary-hover);
+  --bs-link-hover-color-rgb: 23, 63, 112;
+
+  --bs-primary: var(--cc-primary);
+  --bs-primary-rgb: 29, 78, 137;
+  --bs-danger: var(--cc-danger);
+  --bs-danger-rgb: 179, 38, 30;
+  --bs-success: var(--cc-success);
+  --bs-success-rgb: 30, 122, 77;
+}
+
+/* ==== Buttons (spec 11) ==================================================
+   primary   = primary fill
+   secondary = paper with primary border
+   link      = quiet text button
+   danger    = destructive actions only
+   ======================================================================== */
+
+.btn {
+  --bs-btn-font-family: var(--cc-font-sans);
+  --bs-btn-font-size: var(--cc-fs-body);
+  --bs-btn-font-weight: 500;
+  --bs-btn-line-height: 1.25;
+  --bs-btn-padding-x: var(--cc-space-4);
+  --bs-btn-padding-y: var(--cc-space-2);
+  --bs-btn-border-width: 1px;
+  --bs-btn-border-radius: var(--cc-radius-control);
+  --bs-btn-focus-box-shadow: none;
+  --bs-btn-disabled-opacity: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cc-space-2);
+  min-block-size: var(--cc-touch-target);
+  text-decoration: none;
+  transition:
+    background-color var(--cc-duration-fast) var(--cc-ease),
+    border-color var(--cc-duration-fast) var(--cc-ease),
+    color var(--cc-duration-fast) var(--cc-ease);
+}
+
+.btn:focus-visible {
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+  box-shadow: none;
+}
+
+.btn-primary {
+  --bs-btn-color: var(--cc-paper);
+  --bs-btn-bg: var(--cc-primary);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-hover-color: var(--cc-paper);
+  --bs-btn-hover-bg: var(--cc-primary-hover);
+  --bs-btn-hover-border-color: var(--cc-primary-hover);
+  --bs-btn-active-color: var(--cc-paper);
+  --bs-btn-active-bg: var(--cc-primary-hover);
+  --bs-btn-active-border-color: var(--cc-primary-hover);
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: var(--cc-muted);
+  --bs-btn-disabled-bg: var(--cc-plaster);
+  --bs-btn-disabled-border-color: var(--cc-line);
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+  --bs-btn-color: var(--cc-primary);
+  --bs-btn-bg: var(--cc-paper);
+  --bs-btn-border-color: var(--cc-primary);
+  --bs-btn-hover-color: var(--cc-primary-hover);
+  --bs-btn-hover-bg: var(--cc-primary-tint);
+  --bs-btn-hover-border-color: var(--cc-primary-hover);
+  --bs-btn-active-color: var(--cc-primary-hover);
+  --bs-btn-active-bg: var(--cc-primary-tint);
+  --bs-btn-active-border-color: var(--cc-primary-hover);
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: var(--cc-muted);
+  --bs-btn-disabled-bg: var(--cc-plaster);
+  --bs-btn-disabled-border-color: var(--cc-line);
+}
+
+.btn-link {
+  --bs-btn-color: var(--cc-primary);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-color: var(--cc-primary-hover);
+  --bs-btn-hover-bg: var(--cc-primary-tint);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-color: var(--cc-primary-hover);
+  --bs-btn-active-bg: var(--cc-primary-tint);
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-disabled-color: var(--cc-muted);
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: transparent;
+  text-decoration: none;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+}
+
+.btn-danger {
+  --bs-btn-color: var(--cc-paper);
+  --bs-btn-bg: var(--cc-danger);
+  --bs-btn-border-color: var(--cc-danger);
+  --bs-btn-hover-color: var(--cc-paper);
+  --bs-btn-hover-bg: var(--cc-danger-hover);
+  --bs-btn-hover-border-color: var(--cc-danger-hover);
+  --bs-btn-active-color: var(--cc-paper);
+  --bs-btn-active-bg: var(--cc-danger-hover);
+  --bs-btn-active-border-color: var(--cc-danger-hover);
+  --bs-btn-active-shadow: none;
+  --bs-btn-disabled-color: var(--cc-muted);
+  --bs-btn-disabled-bg: var(--cc-plaster);
+  --bs-btn-disabled-border-color: var(--cc-line);
+}
+
+/* Compact buttons keep the full touch target and only reduce padding. */
+.btn-sm {
+  --bs-btn-padding-x: var(--cc-space-3);
+  --bs-btn-padding-y: var(--cc-space-1);
+  --bs-btn-font-size: var(--cc-fs-dense);
+}
+
+/* Busy: set by cc-core.js after a form is submitted (spec 11). */
+.btn.is-busy,
+.btn[aria-disabled="true"] {
+  cursor: progress;
+  pointer-events: none;
+}
+
+.btn-close:focus-visible {
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* ==== Form controls (spec 11): labels always visible =================== */
+
+.form-label {
+  margin-block-end: var(--cc-space-1);
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  min-block-size: var(--cc-touch-target);
+  padding-block: var(--cc-space-2);
+  padding-inline: var(--cc-space-3);
+  font-family: inherit;
+  font-size: var(--cc-fs-body);
+  line-height: var(--cc-lh-body);
+  color: var(--cc-ink);
+  background-color: var(--cc-paper);
+  border: 1px solid var(--cc-control-border);
+  border-radius: var(--cc-radius-control);
+  box-shadow: none;
+}
+
+.form-select {
+  padding-inline-end: 2.25rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  color: var(--cc-ink);
+  background-color: var(--cc-paper);
+  border-color: var(--cc-primary);
+  box-shadow: none;
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+}
+
+.form-control::placeholder {
+  color: var(--cc-muted);
+  opacity: 1;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  color: var(--cc-muted);
+  background-color: var(--cc-plaster);
+  opacity: 1;
+}
+
+textarea.form-control {
+  min-block-size: 7.5rem;
+}
+
+/* Invalid state: red border, no Bootstrap icon. The message and icon next to
+   the field carry the meaning, not colour alone. */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--cc-danger);
+  background-image: none;
+  padding-inline-end: var(--cc-space-3);
+}
+
+.form-select.is-invalid {
+  --bs-form-select-bg-icon: none;
+  padding-inline-end: 2.25rem;
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: var(--cc-danger);
+  box-shadow: none;
+}
+
+.form-check-input {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-block-start: 0.125rem;
+  background-color: var(--cc-paper);
+  border: 1px solid var(--cc-control-border);
+}
+
+.form-check-input:checked {
+  background-color: var(--cc-primary);
+  border-color: var(--cc-primary);
+}
+
+.form-check-input:focus {
+  border-color: var(--cc-primary);
+  box-shadow: none;
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+}
+
+.form-check-label {
+  padding-inline-start: var(--cc-space-1);
+}
+
+.form-text {
+  font-size: var(--cc-fs-caption);
+  line-height: var(--cc-lh-caption);
+  color: var(--cc-muted);
+}
+
+.invalid-feedback {
+  font-size: var(--cc-fs-dense);
+  font-weight: 500;
+  color: var(--cc-danger);
+}
+
+/* ==== Pagination (spec 10.3) ============================================ */
+
+.pagination {
+  --bs-pagination-padding-x: var(--cc-space-3);
+  --bs-pagination-padding-y: var(--cc-space-2);
+  --bs-pagination-font-size: var(--cc-fs-dense);
+  --bs-pagination-color: var(--cc-primary);
+  --bs-pagination-bg: var(--cc-paper);
+  --bs-pagination-border-width: 1px;
+  --bs-pagination-border-color: var(--cc-control-border);
+  --bs-pagination-border-radius: var(--cc-radius-control);
+  --bs-pagination-hover-color: var(--cc-primary-hover);
+  --bs-pagination-hover-bg: var(--cc-primary-tint);
+  --bs-pagination-hover-border-color: var(--cc-control-border);
+  --bs-pagination-focus-color: var(--cc-primary-hover);
+  --bs-pagination-focus-bg: var(--cc-primary-tint);
+  --bs-pagination-focus-box-shadow: none;
+  --bs-pagination-active-color: var(--cc-paper);
+  --bs-pagination-active-bg: var(--cc-primary);
+  --bs-pagination-active-border-color: var(--cc-primary);
+  --bs-pagination-disabled-color: var(--cc-muted);
+  --bs-pagination-disabled-bg: var(--cc-plaster);
+  --bs-pagination-disabled-border-color: var(--cc-line);
+  gap: var(--cc-space-1);
+  flex-wrap: wrap;
+}
+
+.page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--cc-touch-target);
+  min-block-size: var(--cc-touch-target);
+  border-radius: var(--cc-radius-control);
+  font-weight: 500;
+}
+
+.page-link:focus-visible {
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+  box-shadow: none;
+  z-index: 3;
+}
+
+.page-item:not(:first-child) .page-link {
+  margin-inline-start: 0;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+  border-radius: var(--cc-radius-control);
+}
+
+/* ==== Modal (spec 9.8): floating layer, so it may carry the shadow ====== */
+
+.modal {
+  --bs-modal-bg: var(--cc-paper);
+  --bs-modal-border-color: var(--cc-line);
+  --bs-modal-border-width: 1px;
+  --bs-modal-border-radius: var(--cc-radius-panel);
+  --bs-modal-inner-border-radius: calc(var(--cc-radius-panel) - 1px);
+  --bs-modal-box-shadow: var(--cc-shadow-floating);
+  --bs-modal-padding: var(--cc-space-5);
+  --bs-modal-header-padding: var(--cc-space-4) var(--cc-space-5);
+  --bs-modal-header-border-color: var(--cc-line);
+  --bs-modal-footer-border-color: var(--cc-line);
+  --bs-modal-footer-gap: var(--cc-space-2);
+  --bs-modal-title-line-height: var(--cc-lh-h3);
+}
+
+.modal-title {
+  font-size: var(--cc-fs-h3);
+  font-weight: var(--cc-fw-h3);
+}
+
+.modal-footer {
+  padding-block: var(--cc-space-4);
+  padding-inline: var(--cc-space-5);
+}
+
+/* ==== Offcanvas (spec 5.3): 280px, never wider than 85% of the viewport = */
+
+.offcanvas {
+  --bs-offcanvas-width: min(var(--cc-offcanvas-width), 85vw);
+  --bs-offcanvas-bg: var(--cc-paper);
+  --bs-offcanvas-color: var(--cc-ink);
+  --bs-offcanvas-border-width: 1px;
+  --bs-offcanvas-border-color: var(--cc-line);
+  --bs-offcanvas-box-shadow: var(--cc-shadow-floating);
+  --bs-offcanvas-padding-x: var(--cc-space-4);
+  --bs-offcanvas-padding-y: var(--cc-space-4);
+}
+
+/* ==== Dropdown ========================================================== */
+
+.dropdown-menu {
+  --bs-dropdown-bg: var(--cc-paper);
+  --bs-dropdown-color: var(--cc-ink);
+  --bs-dropdown-border-color: var(--cc-line);
+  --bs-dropdown-border-radius: var(--cc-radius-panel);
+  --bs-dropdown-box-shadow: var(--cc-shadow-floating);
+  --bs-dropdown-padding-y: var(--cc-space-2);
+  --bs-dropdown-link-color: var(--cc-ink);
+  --bs-dropdown-link-hover-color: var(--cc-ink);
+  --bs-dropdown-link-hover-bg: var(--cc-primary-tint);
+  --bs-dropdown-link-active-color: var(--cc-ink);
+  --bs-dropdown-link-active-bg: var(--cc-primary-tint);
+  --bs-dropdown-link-disabled-color: var(--cc-muted);
+  --bs-dropdown-divider-bg: var(--cc-line);
+  font-size: var(--cc-fs-body);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+  min-block-size: var(--cc-touch-target);
+  padding-inline: var(--cc-space-4);
+}
+
+.dropdown-item:focus-visible {
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: calc(var(--cc-focus-width) * -1);
+}
+
+/* ==== Breadcrumb (used by the top bar and ticket page) ================== */
+
+.breadcrumb {
+  --bs-breadcrumb-padding-x: 0;
+  --bs-breadcrumb-padding-y: 0;
+  --bs-breadcrumb-margin-bottom: 0;
+  --bs-breadcrumb-font-size: var(--cc-fs-dense);
+  --bs-breadcrumb-divider-color: var(--cc-muted);
+  --bs-breadcrumb-item-active-color: var(--cc-muted);
+}

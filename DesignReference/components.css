@@ -1,0 +1,473 @@
+/* ==========================================================================
+   CampusCare shared components (spec sections 2, 3, 8, 10, 11)
+   Class names use the cc- prefix and BEM-style parts: .cc-panel__title.
+   Shell layout (sidebar, top bar) lives in layout.css, delivered with the
+   shared layout. Conversation and internal-note styles arrive with the
+   Ticket Details phase.
+   ========================================================================== */
+
+/* ==== Panel: white, flat, 1px border (spec 2) ========================== */
+
+.cc-panel {
+  background-color: var(--cc-paper);
+  border: var(--cc-border);
+  border-radius: var(--cc-radius-panel);
+}
+
+.cc-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-space-3);
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  border-block-end: var(--cc-border);
+}
+
+.cc-panel__title {
+  margin: 0;
+  font-size: var(--cc-fs-h3);
+  font-weight: var(--cc-fw-h3);
+  line-height: var(--cc-lh-h3);
+}
+
+.cc-panel__body {
+  padding: var(--cc-space-4);
+}
+
+.cc-panel__footer {
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  border-block-start: var(--cc-border);
+}
+
+/* ==== Status edge: the one memorable element (spec 2) =================== */
+/* Decorative. The status tag always carries the same information as text.  */
+
+.cc-edge {
+  border-inline-start: var(--cc-edge-width) solid var(--cc-edge, var(--cc-line));
+}
+
+/* In tables the stripe sits on the first cell of the row. */
+tr.cc-edge {
+  border-inline-start: 0;
+}
+
+tr.cc-edge > :first-child {
+  border-inline-start: var(--cc-edge-width) solid var(--cc-edge, var(--cc-line));
+}
+
+.cc-edge--open        { --cc-edge: var(--cc-status-open-edge); }
+.cc-edge--in-progress { --cc-edge: var(--cc-status-in-progress-edge); }
+.cc-edge--waiting     { --cc-edge: var(--cc-status-waiting-edge); }
+.cc-edge--resolved    { --cc-edge: var(--cc-status-resolved-edge); }
+.cc-edge--closed      { --cc-edge: var(--cc-status-closed-edge); }
+
+/* ==== Tags: status and priority (spec 3.2, 3.3) ========================= */
+/* Always icon + text. Never colour alone.                                   */
+
+.cc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-1);
+  min-block-size: 1.5rem;
+  padding-block: 0.125rem;
+  padding-inline: var(--cc-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--cc-radius-tag);
+  background-color: var(--cc-tag-bg, var(--cc-paper));
+  color: var(--cc-tag-text, var(--cc-ink));
+  font-size: var(--cc-fs-dense);
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.cc-tag--open        { --cc-tag-bg: var(--cc-status-open-bg);        --cc-tag-text: var(--cc-status-open-text); }
+.cc-tag--in-progress { --cc-tag-bg: var(--cc-status-in-progress-bg); --cc-tag-text: var(--cc-status-in-progress-text); }
+.cc-tag--waiting     { --cc-tag-bg: var(--cc-status-waiting-bg);     --cc-tag-text: var(--cc-status-waiting-text); }
+.cc-tag--resolved    { --cc-tag-bg: var(--cc-status-resolved-bg);    --cc-tag-text: var(--cc-status-resolved-text); }
+.cc-tag--closed      { --cc-tag-bg: var(--cc-status-closed-bg);      --cc-tag-text: var(--cc-status-closed-text); }
+
+/* Priority: Low and Medium are outlined. High is the only filled tag. */
+.cc-tag--low {
+  --cc-tag-bg: transparent;
+  --cc-tag-text: var(--cc-priority-low-text);
+  border-color: var(--cc-priority-low-border);
+}
+
+.cc-tag--medium {
+  --cc-tag-bg: transparent;
+  --cc-tag-text: var(--cc-priority-medium-text);
+  border-color: var(--cc-priority-medium-border);
+}
+
+.cc-tag--high {
+  --cc-tag-bg: var(--cc-priority-high-bg);
+  --cc-tag-text: var(--cc-priority-high-text);
+  border-color: var(--cc-priority-high-border);
+}
+
+/* ==== Ticket identity: ID, location, assignee (spec 2, 10.4) ============ */
+
+.cc-ticket-id {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+a.cc-ticket-id {
+  text-decoration: none;
+}
+
+a.cc-ticket-id:hover {
+  text-decoration: underline;
+}
+
+/* Location: pin icon and the text exactly as the requester entered it. */
+.cc-location {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--cc-space-1);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  color: var(--cc-muted);
+}
+
+.cc-location .cc-icon {
+  margin-block-start: 0.2em;
+}
+
+/* One line with ellipsis in lists. Add cc-location--wrap on detail pages. */
+.cc-location__text {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cc-location--wrap .cc-location__text {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Unassigned marker: amber dot and text (spec 10.4). */
+.cc-unassigned {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+  color: var(--cc-attention-text);
+  font-weight: 500;
+}
+
+.cc-unassigned::before {
+  content: "";
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  flex: none;
+  border-radius: 50%;
+  background-color: var(--cc-attention);
+}
+
+/* Avatar: initials, decorative. Always shown beside the person's name. */
+.cc-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: var(--cc-radius-avatar);
+  background-color: var(--cc-primary-tint);
+  color: var(--cc-primary-hover);
+  font-size: var(--cc-fs-caption);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cc-avatar--sm {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  font-size: 0.6875rem;
+}
+
+.cc-person {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+  min-inline-size: 0;
+}
+
+/* ==== Alert: icon + text on a tint (spec 11) ============================ */
+
+.cc-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cc-space-3);
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  border: 1px solid var(--cc-alert-border, var(--cc-line));
+  border-radius: var(--cc-radius-panel);
+  background-color: var(--cc-alert-bg, var(--cc-paper));
+  color: var(--cc-alert-text, var(--cc-ink));
+}
+
+.cc-alert > .cc-icon {
+  margin-block-start: 0.2em;
+  font-size: 1.125rem;
+}
+
+.cc-alert__body {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.cc-alert__body > :last-child {
+  margin-block-end: 0;
+}
+
+.cc-alert__title {
+  margin-block-end: var(--cc-space-1);
+  font-weight: 600;
+}
+
+.cc-alert--info    { --cc-alert-bg: var(--cc-primary-tint);   --cc-alert-text: var(--cc-primary-hover);          --cc-alert-border: var(--cc-primary); }
+.cc-alert--success { --cc-alert-bg: var(--cc-success-tint);   --cc-alert-text: var(--cc-status-resolved-text);   --cc-alert-border: var(--cc-success); }
+.cc-alert--warning { --cc-alert-bg: var(--cc-attention-tint); --cc-alert-text: var(--cc-attention-text);         --cc-alert-border: var(--cc-attention); }
+.cc-alert--danger  { --cc-alert-bg: var(--cc-danger-tint);    --cc-alert-text: var(--cc-danger);                 --cc-alert-border: var(--cc-danger); }
+
+/* ==== Form field: label, hint, input, error, in that order (spec 11) ==== */
+
+.cc-field {
+  margin-block-end: var(--cc-space-4);
+}
+
+.cc-field__hint {
+  margin-block-start: var(--cc-space-1);
+  font-size: var(--cc-fs-caption);
+  line-height: var(--cc-lh-caption);
+  color: var(--cc-muted);
+}
+
+.cc-field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cc-space-2);
+  margin-block-start: var(--cc-space-1);
+  font-size: var(--cc-fs-dense);
+  font-weight: 500;
+  line-height: var(--cc-lh-dense);
+  color: var(--cc-danger);
+}
+
+.cc-field__error .cc-icon {
+  margin-block-start: 0.15em;
+}
+
+.cc-optional {
+  font-weight: 400;
+  color: var(--cc-muted);
+}
+
+/* Validation summary: receives focus after a failed submit (spec 12). */
+.cc-validation-summary {
+  margin-block-end: var(--cc-space-4);
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  border: 1px solid var(--cc-danger);
+  border-radius: var(--cc-radius-panel);
+  background-color: var(--cc-danger-tint);
+  color: var(--cc-ink);
+}
+
+.cc-validation-summary__title {
+  margin-block-end: var(--cc-space-2);
+  font-size: var(--cc-fs-body);
+  font-weight: 600;
+  color: var(--cc-danger);
+}
+
+.cc-validation-summary ul {
+  margin: 0;
+  padding-inline-start: var(--cc-space-5);
+}
+
+.cc-validation-summary a {
+  color: var(--cc-danger);
+}
+
+/* ==== Table: base styling (spec 10) ===================================== */
+/* The responsive ticket table with stacked rows arrives with Assigned      */
+/* Tickets. This base styling is for every table in the product.            */
+
+.cc-table-wrap {
+  inline-size: 100%;
+  overflow-x: auto;
+}
+
+.cc-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  background-color: var(--cc-paper);
+  font-size: var(--cc-fs-dense);
+  line-height: var(--cc-lh-dense);
+}
+
+.cc-table th,
+.cc-table td {
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  text-align: start;
+  vertical-align: middle;
+  border-block-end: var(--cc-border);
+}
+
+.cc-table thead th {
+  font-weight: 600;
+  white-space: nowrap;
+  background-color: var(--cc-paper);
+}
+
+.cc-table tbody tr:hover {
+  background-color: var(--cc-primary-tint);
+}
+
+.cc-table tbody tr:last-child > * {
+  border-block-end: 0;
+}
+
+/* Sortable header: a real button so it works with the keyboard (spec 10.3). */
+.cc-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cc-sort:hover {
+  color: var(--cc-primary);
+}
+
+/* ==== Empty state (spec 11): one sentence, at most one action ========== */
+
+.cc-empty {
+  padding-block: var(--cc-space-6);
+  padding-inline: var(--cc-space-4);
+  text-align: center;
+  color: var(--cc-muted);
+}
+
+.cc-empty__title {
+  margin-block-end: var(--cc-space-1);
+  font-size: var(--cc-fs-body);
+  font-weight: 600;
+  color: var(--cc-ink);
+}
+
+.cc-empty__hint {
+  max-inline-size: 40ch;
+  margin-inline: auto;
+  margin-block-end: var(--cc-space-4);
+}
+
+/* ==== Spinner (busy buttons) ============================================ */
+
+.cc-spinner {
+  display: inline-block;
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: cc-spin 0.75s linear infinite;
+}
+
+@keyframes cc-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==== Toast (spec 11): bottom inline-end, status or alert ============== */
+
+.cc-toast-region {
+  position: fixed;
+  inset-inline-end: var(--cc-space-4);
+  inset-block-end: calc(var(--cc-bottom-bar-height) + var(--cc-space-4));
+  z-index: var(--cc-z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-space-2);
+  inline-size: min(26rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.cc-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cc-space-3);
+  padding-block: var(--cc-space-3);
+  padding-inline: var(--cc-space-4);
+  border: 1px solid var(--cc-control-border);
+  border-radius: var(--cc-radius-panel);
+  background-color: var(--cc-paper);
+  box-shadow: var(--cc-shadow-floating);
+  pointer-events: auto;
+  animation: cc-toast-in var(--cc-duration-base) var(--cc-ease);
+}
+
+.cc-toast__icon {
+  display: inline-flex;
+  margin-block-start: 0.15em;
+  font-size: 1.125rem;
+}
+
+.cc-toast--success .cc-toast__icon { color: var(--cc-success); }
+.cc-toast--info .cc-toast__icon    { color: var(--cc-primary); }
+.cc-toast--warning .cc-toast__icon { color: var(--cc-attention-text); }
+.cc-toast--danger .cc-toast__icon  { color: var(--cc-danger); }
+
+.cc-toast__message {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.cc-toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--cc-touch-target);
+  block-size: var(--cc-touch-target);
+  margin-block: calc(var(--cc-space-2) * -1);
+  margin-inline-end: calc(var(--cc-space-3) * -1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--cc-radius-control);
+  background: none;
+  color: var(--cc-muted);
+}
+
+.cc-toast__close:hover {
+  background-color: var(--cc-primary-tint);
+  color: var(--cc-ink);
+}
+
+@keyframes cc-toast-in {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 575.98px) {
+  .cc-toast-region {
+    inset-inline-start: var(--cc-space-4);
+    inline-size: auto;
+  }
+}

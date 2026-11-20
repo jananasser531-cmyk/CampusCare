@@ -1,0 +1,135 @@
+/* ==========================================================================
+   CampusCare design tokens
+   Source of truth: CampusCare final design specification, section 3.
+   Every component reads these variables. Never write a raw hex value in a
+   component or page: add or change a token here instead.
+
+   Breakpoints (CSS variables cannot be used inside media queries, so they are
+   written out in the other files): 576px, 768px, 992px, 1200px.
+   ========================================================================== */
+
+:root {
+  /* ---- Colour: core (spec 3.1) ---------------------------------------- */
+  --cc-ink: #1B2430;               /* text, headings */
+  --cc-muted: #55616E;             /* secondary text, hints, timestamps */
+  --cc-primary: #1D4E89;           /* primary buttons, links, active nav, focus ring */
+  --cc-primary-hover: #173F70;     /* hover and pressed */
+  --cc-primary-tint: #E6EEF7;      /* active nav, hovered or selected row */
+  --cc-plaster: #F2F4F6;           /* app background */
+  --cc-paper: #FFFFFF;             /* panels, tables, inputs */
+  --cc-line: #D3DAE1;              /* panel borders and dividers (decorative) */
+  --cc-attention: #F2A900;         /* unassigned marker, High priority border */
+  --cc-attention-tint: #FDF0D5;    /* attention backgrounds, internal notes */
+  --cc-attention-text: #6B4200;    /* text on attention-tint */
+  --cc-danger: #B3261E;
+  --cc-danger-hover: #8F1E18;      /* hover and pressed for destructive buttons */
+  --cc-danger-tint: #FBE7E5;
+  --cc-success: #1E7A4D;
+  --cc-success-tint: #E1F3EA;
+
+  /* Added in Phase 1 after the contrast audit: --cc-line is only 1.41:1 on
+     paper, too faint to identify an input. Controls use this token instead
+     (3.86:1 on paper, 3.50:1 on plaster). */
+  --cc-control-border: #78838F;
+
+  /* ---- Colour: status (spec 3.2) -------------------------------------- */
+  --cc-status-open-edge: #3B6EA8;
+  --cc-status-open-bg: #E6EEF7;
+  --cc-status-open-text: #173F70;
+
+  --cc-status-in-progress-edge: #0F766E;
+  --cc-status-in-progress-bg: #DDF1EE;
+  --cc-status-in-progress-text: #0B5C55;
+
+  --cc-status-waiting-edge: #5E4B9A;
+  --cc-status-waiting-bg: #EEEAF7;
+  --cc-status-waiting-text: #4A3A80;
+
+  --cc-status-resolved-edge: #1E7A4D;
+  --cc-status-resolved-bg: #E1F3EA;
+  --cc-status-resolved-text: #17613D;
+
+  --cc-status-closed-edge: #6B7683;
+  --cc-status-closed-bg: #EBEEF1;
+  --cc-status-closed-text: #3C4651;
+
+  /* ---- Colour: priority (spec 3.3) ------------------------------------ */
+  --cc-priority-low-border: var(--cc-control-border);
+  --cc-priority-low-text: var(--cc-muted);
+  --cc-priority-medium-border: var(--cc-control-border);
+  --cc-priority-medium-text: var(--cc-ink);
+  --cc-priority-high-bg: var(--cc-attention-tint);
+  --cc-priority-high-border: var(--cc-attention);
+  --cc-priority-high-text: var(--cc-attention-text);
+
+  /* ---- Typography (spec 3.5) ------------------------------------------ */
+  --cc-font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --cc-fs-h1: 1.875rem;    --cc-fw-h1: 600;    --cc-lh-h1: 1.25;   /* 30px */
+  --cc-fs-h2: 1.5rem;      --cc-fw-h2: 600;    --cc-lh-h2: 1.25;   /* 24px */
+  --cc-fs-h3: 1.25rem;     --cc-fw-h3: 600;    --cc-lh-h3: 1.3;    /* 20px */
+  --cc-fs-lead: 1.125rem;  --cc-fw-lead: 500;  --cc-lh-lead: 1.4;  /* 18px */
+  --cc-fs-body: 1rem;      --cc-fw-body: 400;  --cc-lh-body: 1.5;  /* 16px */
+  --cc-fs-dense: 0.875rem; --cc-fw-dense: 400; --cc-lh-dense: 1.45; /* 14px */
+  --cc-fs-caption: 0.8125rem; --cc-fw-caption: 400; --cc-lh-caption: 1.4; /* 13px */
+
+  --cc-measure: 75ch;      /* maximum line length for reading text */
+
+  /* ---- Space, 4px base (spec 3.6) ------------------------------------- */
+  --cc-space-1: 0.25rem;   /* 4  */
+  --cc-space-2: 0.5rem;    /* 8  */
+  --cc-space-3: 0.75rem;   /* 12 */
+  --cc-space-4: 1rem;      /* 16 */
+  --cc-space-5: 1.5rem;    /* 24 */
+  --cc-space-6: 2rem;      /* 32 */
+  --cc-space-7: 3rem;      /* 48 */
+
+  /* ---- Shape ----------------------------------------------------------- */
+  --cc-radius-control: 6px;
+  --cc-radius-panel: 8px;
+  --cc-radius-tag: 4px;
+  --cc-radius-avatar: 50%;
+  --cc-border: 1px solid var(--cc-line);
+  --cc-edge-width: 4px;
+
+  /* One shadow only, for floating layers: menus, modals, toasts. */
+  --cc-shadow-floating: 0 8px 24px rgba(27, 36, 48, 0.14);
+
+  /* ---- Focus ----------------------------------------------------------- */
+  --cc-focus-width: 3px;
+  --cc-focus-offset: 2px;
+  --cc-focus-color: var(--cc-primary);
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --cc-sidebar-width: 15rem;       /* 240px */
+  --cc-offcanvas-width: 17.5rem;   /* 280px, capped at 85vw in the overrides */
+  --cc-topbar-height: 3.5rem;      /* 56px */
+  --cc-content-max: 90rem;         /* 1440px */
+  --cc-gutter: 1.5rem;             /* 24px, 16px below 768px */
+  --cc-touch-target: 2.5rem;       /* 40px, 44px below 992px */
+  --cc-touch-gap: 0.5rem;
+  --cc-bottom-bar-height: 0rem;    /* the mobile action bar sets this */
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --cc-duration-fast: 150ms;
+  --cc-duration-base: 200ms;
+  --cc-ease: ease-out;
+
+  /* ---- Stacking -------------------------------------------------------- */
+  --cc-z-topbar: 1030;
+  --cc-z-toast: 1090;
+}
+
+/* Touch targets grow to 44px below 992px (spec 3.6). */
+@media (max-width: 991.98px) {
+  :root {
+    --cc-touch-target: 2.75rem;
+  }
+}
+
+/* Page gutter shrinks to 16px on mobile (spec 3.6). */
+@media (max-width: 767.98px) {
+  :root {
+    --cc-gutter: 1rem;
+  }
+}

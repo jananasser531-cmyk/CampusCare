@@ -1,0 +1,167 @@
+/* ==========================================================================
+   CampusCare base styles (spec sections 3.5, 3.6, 12)
+   Global typography, links, focus ring, skip link, reduced motion.
+   Loaded after Bootstrap. Uses logical properties so RTL can follow later.
+   ========================================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Anchors and focused elements are never hidden behind the sticky top bar
+     or the mobile bottom action bar (spec section 12). */
+  scroll-padding-block-start: calc(var(--cc-topbar-height) + var(--cc-space-4));
+  scroll-padding-block-end: calc(var(--cc-bottom-bar-height) + var(--cc-space-4));
+}
+
+body {
+  margin: 0;
+  font-family: var(--cc-font-sans);
+  font-size: var(--cc-fs-body);
+  font-weight: var(--cc-fw-body);
+  line-height: var(--cc-lh-body);
+  color: var(--cc-ink);
+  background-color: var(--cc-plaster);
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Headings (spec 3.5) ---------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  margin-block: 0 var(--cc-space-3);
+  font-family: inherit;
+  color: inherit;
+}
+
+h1, .cc-text-h1 { font-size: var(--cc-fs-h1); font-weight: var(--cc-fw-h1); line-height: var(--cc-lh-h1); }
+h2, .cc-text-h2 { font-size: var(--cc-fs-h2); font-weight: var(--cc-fw-h2); line-height: var(--cc-lh-h2); }
+h3, .cc-text-h3 { font-size: var(--cc-fs-h3); font-weight: var(--cc-fw-h3); line-height: var(--cc-lh-h3); }
+h4, .cc-text-lead { font-size: var(--cc-fs-lead); font-weight: var(--cc-fw-lead); line-height: var(--cc-lh-lead); }
+h5, h6, .cc-text-dense-strong { font-size: var(--cc-fs-dense); font-weight: 600; line-height: var(--cc-lh-dense); }
+
+.cc-text-body { font-size: var(--cc-fs-body); font-weight: var(--cc-fw-body); line-height: var(--cc-lh-body); }
+.cc-text-dense { font-size: var(--cc-fs-dense); font-weight: var(--cc-fw-dense); line-height: var(--cc-lh-dense); }
+.cc-text-caption { font-size: var(--cc-fs-caption); font-weight: var(--cc-fw-caption); line-height: var(--cc-lh-caption); }
+.cc-text-muted { color: var(--cc-muted); }
+.cc-measure { max-inline-size: var(--cc-measure); }
+
+p {
+  margin-block: 0 var(--cc-space-3);
+}
+
+/* Tabular figures for IDs, counts and dates (spec 3.5). */
+time,
+.cc-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Links (spec 12: links in running text are underlined) ------------- */
+
+a {
+  color: var(--cc-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--cc-primary-hover);
+}
+
+/* Components that are links but not running text. */
+.btn,
+.page-link,
+.dropdown-item,
+.cc-link-plain {
+  text-decoration: none;
+}
+
+/* ---- Focus (spec 3.6): 3px primary ring, 2px offset -------------------- */
+
+:focus-visible {
+  outline: var(--cc-focus-width) solid var(--cc-focus-color);
+  outline-offset: var(--cc-focus-offset);
+}
+
+/* On dark surfaces the ring turns white. */
+.cc-on-dark :focus-visible {
+  outline-color: var(--cc-paper);
+}
+
+/* ---- Accessibility helpers --------------------------------------------- */
+
+.cc-visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.cc-skip-link {
+  position: absolute;
+  inset-inline-start: var(--cc-space-4);
+  inset-block-start: -5rem;
+  z-index: calc(var(--cc-z-toast) + 10);
+  padding: var(--cc-space-3) var(--cc-space-4);
+  border-radius: var(--cc-radius-control);
+  background-color: var(--cc-primary);
+  color: var(--cc-paper);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cc-skip-link:focus {
+  inset-block-start: var(--cc-space-2);
+  color: var(--cc-paper);
+}
+
+/* ---- Small utilities --------------------------------------------------- */
+
+.cc-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Keeps long words (titles, locations) from breaking a layout. */
+.cc-break {
+  overflow-wrap: anywhere;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---- Icons (spec 3.2: Bootstrap Icons style, inline SVG, never emoji) --- */
+
+.cc-icon {
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.125em;
+}
+
+.cc-icon--lg {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+/* ---- Motion (spec 3.6) -------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

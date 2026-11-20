@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  CampusCare icon sprite.
+  Simple 16x16 stroke icons drawn for this project, so the UI does not depend
+  on an icon font or CDN. Colour and stroke come from the .cc-icon class
+  (currentColor), so each icon follows the text colour around it.
+  Use:  <svg class="cc-icon" aria-hidden="true" focusable="false">
+          <use href="/img/campuscare/icons.svg#cc-lock"></use>
+        </svg>
+  Icons that appear with text are decorative (aria-hidden). Icon-only buttons
+  need an accessible name on the button itself.
+-->
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Status icons (spec 3.2) -->
+  <symbol id="cc-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/></symbol>
+  <symbol id="cc-arrow-repeat" viewBox="0 0 16 16"><path d="M13 6.5A5.25 5.25 0 0 0 3.2 5.2"/><path d="M3 2.5v3h3"/><path d="M3 9.5a5.25 5.25 0 0 0 9.8 1.3"/><path d="M13 13.5v-3h-3"/></symbol>
+  <symbol id="cc-hourglass-split" viewBox="0 0 16 16"><path d="M4 2h8M4 14h8"/><path d="M4.75 2c0 3 3.25 3.5 3.25 6s-3.25 3-3.25 6"/><path d="M11.25 2c0 3-3.25 3.5-3.25 6s3.25 3 3.25 6"/></symbol>
+  <symbol id="cc-check-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M5.25 8.25l2 2 3.5-4"/></symbol>
+  <symbol id="cc-lock" viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.25"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></symbol>
+
+  <!-- Priority icons (spec 3.3) -->
+  <symbol id="cc-arrow-up" viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"/></symbol>
+  <symbol id="cc-arrow-down" viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4"/></symbol>
+  <symbol id="cc-dash" viewBox="0 0 16 16"><path d="M3.5 8h9"/></symbol>
+
+  <!-- Location and navigation -->
+  <symbol id="cc-geo-alt" viewBox="0 0 16 16"><path d="M8 14.25s4.75-4.2 4.75-7.75a4.75 4.75 0 0 0-9.5 0C3.25 10.05 8 14.25 8 14.25z"/><circle cx="8" cy="6.5" r="1.6"/></symbol>
+  <symbol id="cc-grid" viewBox="0 0 16 16"><rect x="2.75" y="2.75" width="4.5" height="4.5" rx="1"/><rect x="8.75" y="2.75" width="4.5" height="4.5" rx="1"/><rect x="2.75" y="8.75" width="4.5" height="4.5" rx="1"/><rect x="8.75" y="8.75" width="4.5" height="4.5" rx="1"/></symbol>
+  <symbol id="cc-ticket" viewBox="0 0 16 16"><path d="M2.5 4.5h11v2a1.5 1.5 0 0 0 0 3v2h-11v-2a1.5 1.5 0 0 0 0-3z"/><path d="M6.5 4.5v7" stroke-dasharray="1 1.5"/></symbol>
+  <symbol id="cc-people" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.25"/><path d="M1.75 13.5c.5-2.3 2.2-3.5 4.25-3.5s3.75 1.2 4.25 3.5"/><circle cx="11.5" cy="6" r="1.75"/><path d="M11.5 9.6c1.6 0 2.7 1 3 2.9"/></symbol>
+  <symbol id="cc-tag" viewBox="0 0 16 16"><path d="M2.75 2.75h5.5l5 5-5.5 5.5-5-5z"/><path d="M5.5 5.5h.01"/></symbol>
+  <symbol id="cc-bell" viewBox="0 0 16 16"><path d="M8 2.25a3.75 3.75 0 0 0-3.75 3.75c0 3.25-1.5 4.25-1.5 4.25h10.5s-1.5-1-1.5-4.25A3.75 3.75 0 0 0 8 2.25z"/><path d="M6.6 12.6a1.5 1.5 0 0 0 2.8 0"/></symbol>
+  <symbol id="cc-list" viewBox="0 0 16 16"><path d="M2.75 4h10.5M2.75 8h10.5M2.75 12h10.5"/></symbol>
+  <symbol id="cc-person" viewBox="0 0 16 16"><circle cx="8" cy="5.25" r="2.5"/><path d="M2.75 13.75c.6-2.6 2.7-4 5.25-4s4.65 1.4 5.25 4"/></symbol>
+  <symbol id="cc-box-arrow-right" viewBox="0 0 16 16"><path d="M6.5 2.75H3.75v10.5H6.5"/><path d="M10 5l3 3-3 3"/><path d="M13 8H6.5"/></symbol>
+
+  <!-- Actions -->
+  <symbol id="cc-x" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></symbol>
+  <symbol id="cc-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></symbol>
+  <symbol id="cc-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+  <symbol id="cc-pencil" viewBox="0 0 16 16"><path d="M10.5 2.75l2.75 2.75-7.5 7.5-3.25.5.5-3.25z"/></symbol>
+  <symbol id="cc-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.25"/><path d="M10.25 10.25l3.25 3.25"/></symbol>
+  <symbol id="cc-funnel" viewBox="0 0 16 16"><path d="M2.5 3h11L9.5 8.25V13l-3-1.5V8.25z"/></symbol>
+  <symbol id="cc-file" viewBox="0 0 16 16"><path d="M4 1.75h5.25L12.5 5v9.25H4z"/><path d="M9.25 1.75V5h3.25"/></symbol>
+
+  <!-- Chevrons (direction-implying icons: mirror them when RTL arrives) -->
+  <symbol id="cc-chevron-left" viewBox="0 0 16 16"><path d="M10 3.5L5.5 8 10 12.5"/></symbol>
+  <symbol id="cc-chevron-right" viewBox="0 0 16 16"><path d="M6 3.5L10.5 8 6 12.5"/></symbol>
+  <symbol id="cc-chevron-down" viewBox="0 0 16 16"><path d="M3.5 6L8 10.5 12.5 6"/></symbol>
+  <symbol id="cc-chevron-up" viewBox="0 0 16 16"><path d="M3.5 10L8 5.5 12.5 10"/></symbol>
+
+  <!-- Feedback -->
+  <symbol id="cc-info-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 7.25v3.5"/><path d="M8 5.25h.01"/></symbol>
+  <symbol id="cc-exclamation-triangle" viewBox="0 0 16 16"><path d="M8 2.5l6 10.5H2z"/><path d="M8 6.75v2.75"/><path d="M8 11.4h.01"/></symbol>
+  <symbol id="cc-exclamation-circle" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.75"/><path d="M8 4.75v3.75"/><path d="M8 10.9h.01"/></symbol>
+</svg>

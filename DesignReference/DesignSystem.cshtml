@@ -1,0 +1,458 @@
+@page
+@*
+  CampusCare design-system preview (Phase 1)
+  ------------------------------------------------------------------------
+  Open https://localhost:PORT/Dev/DesignSystem after running the app.
+
+  This page is for you and your teammates only. It uses NO shared layout
+  (Layout = null), so it cannot affect or be affected by the Student pages.
+  Every ticket shown here is SAMPLE DATA. Nothing is read from or saved to
+  a database. Delete the Pages/Dev folder before final submission, or keep
+  it as documentation of the design system.
+*@
+@{
+    Layout = null;
+
+    string iconPath = Url.Content("~/img/campuscare/icons.svg");
+
+    // Renders one icon from the sprite. Icons next to text are decorative.
+    Microsoft.AspNetCore.Html.HtmlString Icon(string name, string extra = "") =>
+        new Microsoft.AspNetCore.Html.HtmlString(
+            "<svg class=\"cc-icon " + extra + "\" aria-hidden=\"true\" focusable=\"false\"><use href=\"" +
+            iconPath + "#cc-" + name + "\"></use></svg>");
+
+    // ---- SAMPLE DATA (replace with real data when the backend is ready) ----
+    var swatches = new[]
+    {
+        (Token: "ink",            Hex: "#1B2430", Use: "Text and headings"),
+        (Token: "muted",          Hex: "#55616E", Use: "Secondary text, hints, timestamps"),
+        (Token: "primary",        Hex: "#1D4E89", Use: "Buttons, links, active navigation, focus ring"),
+        (Token: "primary-hover",  Hex: "#173F70", Use: "Hover and pressed states"),
+        (Token: "primary-tint",   Hex: "#E6EEF7", Use: "Active navigation, hovered row"),
+        (Token: "plaster",        Hex: "#F2F4F6", Use: "Application background"),
+        (Token: "paper",          Hex: "#FFFFFF", Use: "Panels, tables, inputs"),
+        (Token: "line",           Hex: "#D3DAE1", Use: "Panel borders and dividers"),
+        (Token: "control-border", Hex: "#78838F", Use: "Input borders, outlined priority tags"),
+        (Token: "attention",      Hex: "#F2A900", Use: "Unassigned marker, High priority border"),
+        (Token: "attention-tint", Hex: "#FDF0D5", Use: "Internal notes, attention backgrounds"),
+        (Token: "attention-text", Hex: "#6B4200", Use: "Text on attention-tint"),
+        (Token: "danger",         Hex: "#B3261E", Use: "Errors, destructive actions"),
+        (Token: "danger-tint",    Hex: "#FBE7E5", Use: "Error backgrounds"),
+        (Token: "success",        Hex: "#1E7A4D", Use: "Success messages"),
+        (Token: "success-tint",   Hex: "#E1F3EA", Use: "Success backgrounds")
+    };
+
+    var statuses = new[]
+    {
+        (Label: "Open",                  Key: "open",        Glyph: "circle"),
+        (Label: "In progress",           Key: "in-progress", Glyph: "arrow-repeat"),
+        (Label: "Waiting for requester", Key: "waiting",     Glyph: "hourglass-split"),
+        (Label: "Resolved",              Key: "resolved",    Glyph: "check-circle"),
+        (Label: "Closed",                Key: "closed",      Glyph: "lock")
+    };
+
+    var priorities = new[]
+    {
+        (Label: "Low",    Key: "low",    Glyph: "arrow-down"),
+        (Label: "Medium", Key: "medium", Glyph: "dash"),
+        (Label: "High",   Key: "high",   Glyph: "arrow-up")
+    };
+
+    var tickets = new[]
+    {
+        (Id: 142, Title: "AC unit not cooling",              Location: "Engineering, Building B, Room 214",     Priority: 2, Status: 0, HoursAgo: 2),
+        (Id: 139, Title: "Window latch broken",              Location: "Science A, Room 105",                   Priority: 1, Status: 1, HoursAgo: 26),
+        (Id: 131, Title: "Flickering lights in reading room", Location: "Main library, second floor",            Priority: 0, Status: 2, HoursAgo: 75),
+        (Id: 127, Title: "Leaking tap in washroom",          Location: "Engineering, Building A, ground floor", Priority: 2, Status: 3, HoursAgo: 120)
+    };
+
+    var contrast = new[]
+    {
+        (Pair: "ink on paper",                    Ratio: "15.65:1", Need: "4.5:1"),
+        (Pair: "muted on paper",                  Ratio: "6.32:1",  Need: "4.5:1"),
+        (Pair: "muted on plaster",                Ratio: "5.73:1",  Need: "4.5:1"),
+        (Pair: "primary on paper (links)",        Ratio: "8.39:1",  Need: "4.5:1"),
+        (Pair: "paper on primary (button text)",  Ratio: "8.39:1",  Need: "4.5:1"),
+        (Pair: "paper on primary-hover",          Ratio: "10.60:1", Need: "4.5:1"),
+        (Pair: "primary-hover on primary-tint",   Ratio: "9.05:1",  Need: "4.5:1"),
+        (Pair: "attention-text on attention-tint", Ratio: "7.74:1", Need: "4.5:1"),
+        (Pair: "danger on danger-tint",           Ratio: "5.50:1",  Need: "4.5:1"),
+        (Pair: "paper on danger (button text)",   Ratio: "6.54:1",  Need: "4.5:1"),
+        (Pair: "control-border on paper",         Ratio: "3.86:1",  Need: "3:1"),
+        (Pair: "control-border on plaster",       Ratio: "3.50:1",  Need: "3:1"),
+        (Pair: "primary focus ring on paper",     Ratio: "8.39:1",  Need: "3:1")
+    };
+
+    var iconNames = new[]
+    {
+        "circle", "arrow-repeat", "hourglass-split", "check-circle", "lock",
+        "arrow-up", "arrow-down", "dash", "geo-alt", "grid", "ticket", "people", "tag",
+        "bell", "list", "person", "box-arrow-right", "x", "check", "plus", "pencil",
+        "search", "funnel", "file", "chevron-left", "chevron-right", "chevron-down",
+        "chevron-up", "info-circle", "exclamation-triangle", "exclamation-circle"
+    };
+
+    var now = DateTime.UtcNow;
+    string Iso(DateTime d) => d.ToString("o");
+    string Abs(DateTime d) => d.ToString("d MMM yyyy, HH:mm");
+}
+<!DOCTYPE html>
+<html lang="en" data-cc-icons="@iconPath">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design system preview, CampusCare</title>
+
+    @* Bootstrap 5.3.8 is installed locally (LibMan). No CDN. *@
+    <link rel="stylesheet" href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/campuscare/campuscare.css")" />
+
+    <style>
+        /* Layout for this preview page only. Components come from the design system. */
+        .demo-wrap { max-inline-size: 72rem; margin-inline: auto; padding: var(--cc-space-5) var(--cc-gutter) var(--cc-space-7); }
+        .demo-section { margin-block-start: var(--cc-space-6); }
+        .demo-swatch { display: flex; align-items: center; gap: var(--cc-space-3); padding: var(--cc-space-3); }
+        .demo-swatch__chip { flex: none; inline-size: 3rem; block-size: 3rem; border: 1px solid var(--cc-control-border); border-radius: var(--cc-radius-control); }
+        .demo-swatch__name { font-weight: 600; }
+        .demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cc-space-3); }
+        .demo-note { color: var(--cc-muted); font-size: var(--cc-fs-caption); }
+        .demo-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: var(--cc-space-3); margin: 0; padding: 0; list-style: none; }
+        .demo-icons li { display: flex; flex-direction: column; align-items: center; gap: var(--cc-space-1); padding: var(--cc-space-3); border: var(--cc-border); border-radius: var(--cc-radius-control); background: var(--cc-paper); font-size: var(--cc-fs-caption); }
+        .demo-icons .cc-icon { font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+    <a class="cc-skip-link" href="#main">Skip to main content</a>
+
+    <main id="main" class="demo-wrap">
+        <h1>CampusCare design system preview</h1>
+        <p class="cc-measure">
+            Phase 1 foundation for the Support Agent and Administrator interface, built from the Version 3
+            specification. Use this page to check that everything loads and looks right.
+        </p>
+
+        <div class="cc-alert cc-alert--info" role="note">
+            @Icon("info-circle")
+            <div class="cc-alert__body">
+                <p class="cc-alert__title">Sample data only</p>
+                <p>
+                    Tickets on this page are made up. Buttons that show a message do not save anything.
+                    Typeface check: <strong id="font-status">checking</strong>
+                </p>
+            </div>
+        </div>
+
+        @* ============ Colour ============ *@
+        <section class="demo-section" aria-labelledby="h-colour">
+            <h2 id="h-colour">Colour tokens</h2>
+            <div class="row g-3">
+                @foreach (var s in swatches)
+                {
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="cc-panel demo-swatch">
+                            <span class="demo-swatch__chip" style="background-color: var(--cc-@s.Token)" aria-hidden="true"></span>
+                            <div>
+                                <div class="demo-swatch__name">@s.Token <span class="cc-tabular cc-text-muted">@s.Hex</span></div>
+                                <div class="cc-text-dense cc-text-muted">@s.Use</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <h3 class="mt-5">Contrast audit</h3>
+            <p class="cc-text-dense cc-text-muted">
+                Computed with the WCAG formula. Every pair that carries text meets 4.5:1, and every control border and
+                the focus ring meet 3:1. The amber attention colour is never relied on alone: it always sits beside text.
+            </p>
+            <div class="cc-panel">
+                <div class="cc-table-wrap">
+                    <table class="cc-table">
+                        <caption class="cc-visually-hidden">Colour contrast results</caption>
+                        <thead><tr><th scope="col">Pair</th><th scope="col">Ratio</th><th scope="col">Required</th></tr></thead>
+                        <tbody>
+                            @foreach (var c in contrast)
+                            {
+                                <tr><td>@c.Pair</td><td class="cc-tabular">@c.Ratio</td><td class="cc-tabular">@c.Need</td></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        @* ============ Typography ============ *@
+        <section class="demo-section" aria-labelledby="h-type">
+            <h2 id="h-type">Typography</h2>
+            <div class="cc-panel cc-panel__body">
+                <p class="cc-text-h1">Page title, 30 px / 600</p>
+                <p class="cc-text-h2">Section title, 24 px / 600</p>
+                <p class="cc-text-h3">Panel title, 20 px / 600</p>
+                <p class="cc-text-lead">Ticket title, 18 px / 500</p>
+                <p class="cc-text-body">Body text, 16 px / 400. The air conditioning unit in room 214 stopped cooling on Sunday.</p>
+                <p class="cc-text-dense">Dense and table text, 14 px / 400</p>
+                <p class="cc-text-caption cc-text-muted mb-0">Caption and hint text, 13 px / 400. Tabular figures: <span class="cc-tabular">CC-0142, 1,111, 0:00</span></p>
+            </div>
+        </section>
+
+        @* ============ Buttons ============ *@
+        <section class="demo-section" aria-labelledby="h-buttons">
+            <h2 id="h-buttons">Buttons</h2>
+            <div class="cc-panel cc-panel__body">
+                <div class="demo-row">
+                    <button type="button" class="btn btn-primary">@Icon("plus") Create ticket</button>
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="button" class="btn btn-link">Quiet action</button>
+                    <button type="button" class="btn btn-danger">Confirm and close</button>
+                    <button type="button" class="btn btn-primary" disabled>Disabled</button>
+                    <button type="button" class="btn btn-primary btn-sm">Assign</button>
+                </div>
+                <p class="demo-note mt-3 mb-2">Busy state: submit this form and the button shows a busy label and ignores repeat clicks. It sends a harmless GET request.</p>
+                <form method="get" data-cc-busy class="demo-row">
+                    <input type="hidden" name="demo" value="busy" />
+                    <button type="submit" class="btn btn-primary" data-cc-busy-label="Saving">Save changes</button>
+                </form>
+            </div>
+        </section>
+
+        @* ============ Forms ============ *@
+        <section class="demo-section" aria-labelledby="h-forms">
+            <h2 id="h-forms">Form fields</h2>
+            <div class="cc-panel cc-panel__body">
+                <div class="cc-validation-summary" role="alert" tabindex="-1">
+                    <p class="cc-validation-summary__title">Fix 1 problem to continue</p>
+                    <ul><li><a href="#demo-resolution">Enter a resolution summary.</a></li></ul>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <div class="cc-field">
+                            <label class="form-label" for="demo-search">Search by ID or title</label>
+                            <input class="form-control" id="demo-search" type="search" placeholder="CC-0142 or a word from the title" aria-describedby="demo-search-hint" />
+                            <div class="cc-field__hint" id="demo-search-hint">Accepts CC-0142 or 142.</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="cc-field">
+                            <label class="form-label" for="demo-status">Status</label>
+                            <select class="form-select" id="demo-status">
+                                <option>All statuses</option>
+                                @foreach (var s in statuses) { <option>@s.Label</option> }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="cc-field mb-0">
+                            <label class="form-label" for="demo-resolution">Resolution summary</label>
+                            <textarea class="form-control is-invalid" id="demo-resolution" rows="3" aria-invalid="true" aria-describedby="demo-resolution-hint demo-resolution-error"></textarea>
+                            <div class="cc-field__hint" id="demo-resolution-hint">Describe what was done. The requester will see this.</div>
+                            <div class="cc-field__error" id="demo-resolution-error">@Icon("exclamation-circle") Enter a resolution summary.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="mt-4">
+                    <legend class="form-label">Visibility</legend>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="demo-visibility" id="demo-public" checked />
+                        <label class="form-check-label" for="demo-public">Public comment</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="demo-visibility" id="demo-internal" />
+                        <label class="form-check-label" for="demo-internal">Internal note</label>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+
+        @* ============ Status and priority ============ *@
+        <section class="demo-section" aria-labelledby="h-tags">
+            <h2 id="h-tags">Status and priority</h2>
+            <div class="cc-panel cc-panel__body">
+                <h3 class="cc-text-lead">Status tags</h3>
+                <div class="demo-row mb-4">
+                    @foreach (var s in statuses)
+                    {
+                        <span class="cc-tag cc-tag--@(s.Key)">@Icon(s.Glyph) @s.Label</span>
+                    }
+                </div>
+                <h3 class="cc-text-lead">Priority tags</h3>
+                <div class="demo-row mb-4">
+                    @foreach (var p in priorities)
+                    {
+                        <span class="cc-tag cc-tag--@(p.Key)">@Icon(p.Glyph) @p.Label</span>
+                    }
+                </div>
+                <h3 class="cc-text-lead">Work-order tag: edge, ID, priority, location</h3>
+                <div class="cc-edge cc-edge--in-progress cc-panel__body" style="background-color: var(--cc-paper); border-radius: var(--cc-radius-panel);">
+                    <div class="demo-row">
+                        <span class="cc-ticket-id">CC-0142</span>
+                        <span class="cc-tag cc-tag--high">@Icon("arrow-up") High</span>
+                        <span class="cc-tag cc-tag--in-progress">@Icon("arrow-repeat") In progress</span>
+                    </div>
+                    <p class="cc-text-lead mt-2 mb-1">AC unit not cooling</p>
+                    <span class="cc-location cc-location--wrap">@Icon("geo-alt")<span class="cc-location__text">Engineering, Building B, Room 214</span></span>
+                </div>
+                <h3 class="cc-text-lead mt-4">People</h3>
+                <div class="demo-row">
+                    <span class="cc-person"><span class="cc-avatar" aria-hidden="true">SK</span> Sara K.</span>
+                    <span class="cc-person"><span class="cc-avatar cc-avatar--sm" aria-hidden="true">MH</span> Mona H.</span>
+                    <span class="cc-unassigned">Unassigned</span>
+                </div>
+            </div>
+        </section>
+
+        @* ============ Alerts and toasts ============ *@
+        <section class="demo-section" aria-labelledby="h-alerts">
+            <h2 id="h-alerts">Alerts and toasts</h2>
+            <div class="d-grid gap-3">
+                <div class="cc-alert cc-alert--info" role="status">@Icon("info-circle")<div class="cc-alert__body">Support is waiting for your reply. Reply below so the agent can continue.</div></div>
+                <div class="cc-alert cc-alert--success" role="status">@Icon("check-circle")<div class="cc-alert__body">CC-0142 marked as resolved.</div></div>
+                <div class="cc-alert cc-alert--warning" role="status">@Icon("exclamation-triangle")<div class="cc-alert__body">Attachment limit reached (3 of 3).</div></div>
+                <div class="cc-alert cc-alert--danger" role="alert">@Icon("exclamation-circle")<div class="cc-alert__body">We couldn't load your tickets. Refresh the page, or try again in a moment.</div></div>
+            </div>
+            <div class="cc-panel cc-panel__body mt-3">
+                <p class="demo-note mb-2">Toasts stay at least 8 seconds, pause on hover and focus, and have a dismiss button. Error toasts never close on their own.</p>
+                <div class="demo-row">
+                    <button type="button" class="btn btn-secondary" data-cc-toast-type="success" data-cc-toast-message="CC-0151 assigned to Sara K.">Success toast</button>
+                    <button type="button" class="btn btn-secondary" data-cc-toast-type="info" data-cc-toast-message="CC-0142 is now In progress.">Info toast</button>
+                    <button type="button" class="btn btn-secondary" data-cc-toast-type="danger" data-cc-toast-message="We couldn't save your changes. Try again in a moment.">Error toast</button>
+                </div>
+            </div>
+        </section>
+
+        @* ============ Table ============ *@
+        <section class="demo-section" aria-labelledby="h-table">
+            <h2 id="h-table">Table base styling</h2>
+            <p class="cc-text-dense cc-text-muted">
+                Base look only. The responsive ticket table (stacked rows below 768 px) arrives with Assigned Tickets.
+            </p>
+            <div class="cc-panel">
+                <div class="cc-table-wrap">
+                    <table class="cc-table">
+                        <caption class="cc-visually-hidden">Sample tickets</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Ticket</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Priority</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var t in tickets)
+                            {
+                                var st = statuses[t.Status];
+                                var pr = priorities[t.Priority];
+                                var updated = now.AddHours(-t.HoursAgo);
+                                <tr class="cc-edge cc-edge--@(st.Key)">
+                                    <td><a class="cc-ticket-id" href="#main">CC-@t.Id.ToString("D4")</a></td>
+                                    <td>@t.Title</td>
+                                    <td><span class="cc-location">@Icon("geo-alt")<span class="cc-location__text">@t.Location</span></span></td>
+                                    <td><span class="cc-tag cc-tag--@(pr.Key)">@Icon(pr.Glyph) @pr.Label</span></td>
+                                    <td><span class="cc-tag cc-tag--@(st.Key)">@Icon(st.Glyph) @st.Label</span></td>
+                                    <td><time datetime="@Iso(updated)" data-cc-relative>@Abs(updated)</time></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <nav class="mt-3" aria-label="Pagination, sample">
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled"><span class="page-link">@Icon("chevron-left") Previous</span></li>
+                    <li class="page-item active"><a class="page-link" href="#main" aria-current="page">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#main">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#main">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#main">Next @Icon("chevron-right")</a></li>
+                </ul>
+            </nav>
+
+            <div class="cc-panel mt-4">
+                <div class="cc-empty">
+                    <p class="cc-empty__title">No tickets are assigned to you.</p>
+                    <p class="cc-empty__hint">Tickets appear here after an administrator assigns them.</p>
+                </div>
+            </div>
+        </section>
+
+        @* ============ Dialog and menu ============ *@
+        <section class="demo-section" aria-labelledby="h-overlays">
+            <h2 id="h-overlays">Dialog and menu</h2>
+            <div class="cc-panel cc-panel__body">
+                <div class="demo-row">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#demo-modal">Mark as resolved</button>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Sara K.</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#main">@Icon("person") Account</a></li>
+                            <li><a class="dropdown-item" href="#main">@Icon("box-arrow-right") Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @* ============ Icons ============ *@
+        <section class="demo-section" aria-labelledby="h-icons">
+            <h2 id="h-icons">Icons</h2>
+            <ul class="demo-icons">
+                @foreach (var iconName in iconNames)
+                {
+                    <li>@Icon(iconName)<span>@iconName</span></li>
+                }
+            </ul>
+        </section>
+
+        <section class="demo-section" aria-labelledby="h-focus">
+            <h2 id="h-focus">Focus and motion</h2>
+            <p class="cc-measure">
+                Press Tab on this page: every control shows the same 3 px blue ring. If your operating system is set to
+                reduce motion, animations (such as the toast sliding in) are switched off.
+            </p>
+        </section>
+    </main>
+
+    @* Modal: Bootstrap markup, CampusCare look. Resolution summary is required. *@
+    <div class="modal fade" id="demo-modal" tabindex="-1" aria-labelledby="demo-modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="demo-modal-title">Mark CC-0142 as resolved</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cc-field mb-0">
+                        <label class="form-label" for="demo-modal-summary">Resolution summary</label>
+                        <textarea class="form-control" id="demo-modal-summary" rows="4" aria-describedby="demo-modal-hint"></textarea>
+                        <div class="cc-field__hint" id="demo-modal-hint">Describe what was done. The requester will see this.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-cc-toast-type="success" data-cc-toast-message="CC-0142 marked as resolved. (Sample only: nothing was saved.)">Mark as resolved</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="@Url.Content("~/lib/bootstrap/dist/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/js/campuscare/cc-core.js")"></script>
+    <script>
+        // Typeface check for this preview page only.
+        (function () {
+            var out = document.getElementById('font-status');
+            if (!out || !document.fonts || !document.fonts.load) { return; }
+            document.fonts.load('400 16px "IBM Plex Sans"').then(function (faces) {
+                var ok = faces.length > 0 && faces[0].status === 'loaded';
+                out.textContent = ok ? 'IBM Plex Sans is loaded.' : 'IBM Plex Sans files not found yet, using the system font. See README step 3.';
+            }).catch(function () {
+                out.textContent = 'IBM Plex Sans files not found yet, using the system font. See README step 3.';
+            });
+        })();
+    </script>
+</body>
+</html>

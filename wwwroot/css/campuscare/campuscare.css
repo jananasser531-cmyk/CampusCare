@@ -1,0 +1,16 @@
+/* ==========================================================================
+   CampusCare design system: single entry point.
+
+   Link this file AFTER bootstrap.min.css. Order matters:
+   tokens, fonts, base, Bootstrap overrides, components.
+
+   @import keeps development simple (edit a file, refresh). Before final
+   submission you can paste the five files into one bundle if you want fewer
+   requests; nothing else needs to change.
+   ========================================================================== */
+
+@import url("tokens.css");
+@import url("fonts.css");
+@import url("base.css");
+@import url("bootstrap-overrides.css");
+@import url("components.css");
