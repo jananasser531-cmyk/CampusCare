@@ -1,0 +1,95 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+@if (!User.Identity!.IsAuthenticated)
+{
+    <div class="text-center py-5">
+        <h1 class="display-5">Welcome to CampusCare</h1>
+        <p class="lead">Report campus maintenance problems and follow their progress.</p>
+        <a asp-page="/Account/Login" class="btn btn-primary me-2">Log in</a>
+        <a asp-page="/Account/Register" class="btn btn-outline-primary">Register</a>
+    </div>
+}
+else if (Model.IsRequester)
+{
+    <h1 class="h3 mb-3">Welcome, @Model.FullName</h1>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="display-6">@Model.TotalCount</div>
+                    <div class="text-muted">Total requests</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="display-6">@Model.OpenCount</div>
+                    <div class="text-muted">Open</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="display-6">@Model.InProgressCount</div>
+                    <div class="text-muted">In progress</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md">
+            <div class="card text-center border-warning">
+                <div class="card-body">
+                    <div class="display-6">@Model.WaitingCount</div>
+                    <div class="text-muted">Waiting for you</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="display-6">@Model.ResolvedCount</div>
+                    <div class="text-muted">Resolved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="h5 mb-0">Recent activity</h2>
+        <a asp-page="/Tickets/Create" class="btn btn-primary btn-sm">New request</a>
+    </div>
+
+    @if (!Model.Recent.Any())
+    {
+        <p class="text-muted">You haven't submitted any requests yet.</p>
+    }
+    else
+    {
+        <ul class="list-group mb-2">
+            @foreach (var t in Model.Recent)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a asp-page="/Tickets/Details" asp-route-id="@t.Id">@t.Subject</a>
+                        <div class="text-muted small">
+                            @t.TicketNumber &middot; updated @t.UpdatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+                        </div>
+                    </div>
+                    <span class="badge @(t.Status == TicketStatuses.WaitingForRequester ? "bg-warning text-dark" : "bg-secondary")">@t.Status</span>
+                </li>
+            }
+        </ul>
+        <a asp-page="/Tickets/MyRequests">View all my requests</a>
+    }
+}
+else
+{
+    <h1 class="h3">Welcome to CampusCare</h1>
+    <p>You're signed in as @User.Identity.Name.</p>
+}

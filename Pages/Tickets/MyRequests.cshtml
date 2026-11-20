@@ -1,0 +1,74 @@
+﻿@page
+@model CampusCare.Pages.Tickets.MyRequestsModel
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">My Requests</h1>
+    <a asp-page="/Tickets/Create" class="btn btn-primary">New request</a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (!Model.Tickets.Any())
+{
+    <p class="text-muted">You haven't submitted any requests yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Subject</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Submitted</th>
+                    <th>Last update</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model.Tickets)
+                {
+                    <tr>
+                        <td>@t.TicketNumber</td>
+                        <td>@t.Subject</td>
+                        <td>@t.CategoryName</td>
+                        <td><span class="badge @(t.Status == TicketStatuses.WaitingForRequester ? "bg-warning text-dark" : "bg-secondary")">@t.Status</span></td>
+                        <td>@t.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@t.UpdatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <a asp-page="/Tickets/Details" asp-route-id="@t.Id"
+                               class="btn btn-sm btn-outline-primary">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-page="/Tickets/MyRequests"
+                       asp-route-pageNumber="@(Model.PageNumber - 1)">Previous</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Page @Model.PageNumber of @Model.TotalPages</span>
+                </li>
+                <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-page="/Tickets/MyRequests"
+                       asp-route-pageNumber="@(Model.PageNumber + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model CampusCare.Pages.Tickets.DetailsModel
+@{
+    ViewData["Title"] = Model.Ticket.TicketNumber;
+}
+
+<a asp-page="/Tickets/MyRequests">&larr; Back to My Requests</a>
+
+<h1 class="h3 mt-2">@Model.Ticket.Subject</h1>
+<p class="text-muted">@Model.Ticket.TicketNumber</p>
+
+@if (Model.Ticket.Status == TicketStatuses.WaitingForRequester)
+{
+    <div class="alert alert-warning">
+        The support team is waiting for your reply on this request.
+    </div>
+}
+
+<dl class="row">
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9"><span class="badge @(Model.Ticket.Status == TicketStatuses.WaitingForRequester ? "bg-warning text-dark" : "bg-secondary")">@Model.Ticket.Status</span></dd>
+
+    <dt class="col-sm-3">Category</dt>
+    <dd class="col-sm-9">@Model.Ticket.Category.Name</dd>
+
+    <dt class="col-sm-3">Location</dt>
+    <dd class="col-sm-9">@Model.Ticket.Location</dd>
+
+    <dt class="col-sm-3">Priority</dt>
+    <dd class="col-sm-9">@Model.Ticket.Priority</dd>
+
+    <dt class="col-sm-3">Assigned agent</dt>
+    <dd class="col-sm-9">@(Model.Ticket.AssignedAgent?.FullName ?? "Not assigned yet")</dd>
+
+    <dt class="col-sm-3">Submitted</dt>
+    <dd class="col-sm-9">@Model.Ticket.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</dd>
+
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9">@Model.Ticket.Description</dd>
+</dl>
+
+@if (Model.Ticket.Attachments.Any())
+{
+    <h2 class="h5">Attachments</h2>
+    <ul>
+        @foreach (var a in Model.Ticket.Attachments)
+        {
+            <li><a href="@a.FilePath" target="_blank">@a.FileName</a></li>
+        }
+    </ul>
+}
+
+<h2 class="h5 mt-4">Status history</h2>
+<ul class="list-group">
+    @foreach (var h in Model.Ticket.StatusHistory.OrderBy(h => h.ChangedAt))
+    {
+        <li class="list-group-item">
+            <strong>@h.NewStatus</strong>
+            <span class="text-muted">
+                by @h.ChangedByUser.FullName on @h.ChangedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
+            </span>
+        </li>
+    }
+</ul>
